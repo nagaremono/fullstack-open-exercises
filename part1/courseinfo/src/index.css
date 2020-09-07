@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.courseinfo {
+  margin: 30px;
+}
+
+.sum {
+  font-weight: 700;
+}
