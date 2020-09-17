@@ -4,7 +4,9 @@ const Person = ({ person, deletePerson }) => {
   return (
     <li>
       {person.name} {person.number}
-      <button onClick={() => deletePerson(person)}>Delete</button>
+      <button className="delete-button" onClick={() => deletePerson(person)}>
+        Delete
+      </button>
     </li>
   );
 };

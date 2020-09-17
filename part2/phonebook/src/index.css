@@ -15,3 +15,32 @@ code {
 .phonebook {
   margin: 30px;
 }
+
+.delete-button {
+  margin: 0 10px;
+  font-size: 16px;
+  padding: 4px 10px;
+  background-color: rgb(139, 0, 0);
+  border: 2px solid #000;
+  color: #fff;
+  font-weight: 400;
+}
+
+.success,
+.error {
+  width: 40%;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 7px;
+  margin-bottom: 15px;
+}
+
+.success {
+  border: 3px solid rgb(30, 126, 30);
+  background-color: rgb(218, 255, 206);
+}
+
+.error {
+  border: 3px solid rgb(126, 30, 30);
+  background-color: rgb(255, 206, 206);
+}

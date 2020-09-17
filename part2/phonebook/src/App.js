@@ -3,6 +3,7 @@ import Filter from './Filter';
 import NewPersonForm from './NewPersonForm';
 import Persons from './Persons';
 import personService from './services/persons';
+import Notification from './Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,6 +12,8 @@ const App = () => {
     newNumber: '',
     search: '',
   });
+  const [message, setMessage] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     personService
@@ -48,6 +51,23 @@ const App = () => {
             newName: '',
             newNumber: '',
           });
+
+          setMessage(`${updatedPerson.name}'s number updated`);
+
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
+        })
+        .catch(() => {
+          setIsError(true);
+          setMessage(
+            `${personToUpdate.name}'s information is no longer on the server`
+          );
+
+          setTimeout(() => {
+            setIsError(false);
+            setMessage(null);
+          }, 5000);
         });
 
       return;
@@ -77,6 +97,7 @@ const App = () => {
         newName: '',
         newNumber: '',
       });
+      setMessage(`Added ${returnedPerson.name}`);
     });
   };
 
@@ -107,6 +128,7 @@ const App = () => {
   return (
     <div className="phonebook">
       <h1>PhoneBook</h1>
+      <Notification message={message} isError={isError} />
       <Filter inputFields={inputFields} handleInputChange={handleInputChange} />
       <NewPersonForm
         inputFields={inputFields}
