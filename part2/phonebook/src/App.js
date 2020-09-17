@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Filter from './Filter';
 import NewPersonForm from './NewPersonForm';
 import Persons from './Persons';
+import personService from './services/persons';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -13,9 +13,9 @@ const App = () => {
   });
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then((response) => setPersons(response.data));
+    personService
+      .getAllPerson()
+      .then((intialPersons) => setPersons(intialPersons));
   }, []);
 
   const handleInputChange = (event) => {
@@ -26,15 +26,43 @@ const App = () => {
     });
   };
 
+  const updatePerson = (personToUpdate) => {
+    const confirmation = window.confirm(
+      `${personToUpdate.name} is already in the phonebook. Replace the old number with the new one?`
+    );
+
+    if (confirmation) {
+      personService
+        .updatePerson({
+          ...personToUpdate,
+          number: inputFields.newNumber,
+        })
+        .then((updatedPerson) => {
+          const updatedPersons = persons.map((person) =>
+            person.id === updatedPerson.id ? updatedPerson : person
+          );
+
+          setPersons(updatedPersons);
+          setInputFields({
+            ...inputFields,
+            newName: '',
+            newNumber: '',
+          });
+        });
+
+      return;
+    }
+  };
+
   const addPerson = (event) => {
     event.preventDefault();
 
-    const samePersons = persons.filter(
+    const samePerson = persons.find(
       (person) => person.name === inputFields.newName
     );
 
-    if (samePersons.length > 0) {
-      return alert(`${samePersons[0].name} is already added to the phonebook`);
+    if (samePerson) {
+      return updatePerson(samePerson);
     }
 
     const newPerson = {
@@ -42,12 +70,29 @@ const App = () => {
       number: inputFields.newNumber,
     };
 
-    setPersons(persons.concat(newPerson));
-    setInputFields({
-      ...inputFields,
-      newName: '',
-      newNumber: '',
+    personService.createPerson(newPerson).then((returnedPerson) => {
+      setPersons(persons.concat(returnedPerson));
+      setInputFields({
+        ...inputFields,
+        newName: '',
+        newNumber: '',
+      });
     });
+  };
+
+  const deletePerson = (personToDelete) => {
+    const confirmation = window.confirm(
+      `Are you sure you want to delete ${personToDelete.name}?`
+    );
+
+    if (confirmation) {
+      personService.deletePerson(personToDelete.id).then(() => {
+        const updatedPersons = persons.filter(
+          (person) => person.id !== personToDelete.id
+        );
+        setPersons(updatedPersons);
+      });
+    }
   };
 
   const personsToShow =
@@ -70,7 +115,7 @@ const App = () => {
         // Input names are the keys in the inputFields state
         inputNames={{ name: 'newName', number: 'newNumber' }}
       />
-      <Persons personsToShow={personsToShow} />
+      <Persons personsToShow={personsToShow} deletePerson={deletePerson} />
     </div>
   );
 };
