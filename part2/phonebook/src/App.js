@@ -98,6 +98,15 @@ const App = () => {
         newNumber: '',
       });
       setMessage(`Added ${returnedPerson.name}`);
+    }).catch(() => {
+      setIsError(true);
+      setMessage(
+        `Something went wrong...`
+      );
+      setTimeout(() => {
+        setIsError(false);
+        setMessage(null);
+      }, 5000);
     });
   };
 
@@ -111,7 +120,24 @@ const App = () => {
         const updatedPersons = persons.filter(
           (person) => person.id !== personToDelete.id
         );
+
         setPersons(updatedPersons);
+        setMessage(
+          `${personToDelete.name}'s information is deleted`
+        );
+        setTimeout(() => {
+          setIsError(false);
+          setMessage(null);
+        }, 5000);
+      }).catch(() => {
+        setIsError(true);
+        setMessage(
+          `${personToDelete.name}'s information is no longer on the server`
+        );
+        setTimeout(() => {
+          setIsError(false);
+          setMessage(null);
+        }, 5000);
       });
     }
   };
