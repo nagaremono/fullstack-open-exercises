@@ -58,11 +58,9 @@ const App = () => {
             setMessage(null);
           }, 5000);
         })
-        .catch(() => {
+        .catch((error) => {
           setIsError(true);
-          setMessage(
-            `${personToUpdate.name}'s information is no longer on the server`
-          );
+          setMessage(`${error.response.data.error}`);
 
           setTimeout(() => {
             setIsError(false);
@@ -90,24 +88,25 @@ const App = () => {
       number: inputFields.newNumber,
     };
 
-    personService.createPerson(newPerson).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-      setInputFields({
-        ...inputFields,
-        newName: '',
-        newNumber: '',
+    personService
+      .createPerson(newPerson)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        setInputFields({
+          ...inputFields,
+          newName: '',
+          newNumber: '',
+        });
+        setMessage(`Added ${returnedPerson.name}`);
+      })
+      .catch((error) => {
+        setIsError(true);
+        setMessage(`${error.response.data.error}`);
+        setTimeout(() => {
+          setIsError(false);
+          setMessage(null);
+        }, 5000);
       });
-      setMessage(`Added ${returnedPerson.name}`);
-    }).catch(() => {
-      setIsError(true);
-      setMessage(
-        `Something went wrong...`
-      );
-      setTimeout(() => {
-        setIsError(false);
-        setMessage(null);
-      }, 5000);
-    });
   };
 
   const deletePerson = (personToDelete) => {
@@ -116,29 +115,28 @@ const App = () => {
     );
 
     if (confirmation) {
-      personService.deletePerson(personToDelete.id).then(() => {
-        const updatedPersons = persons.filter(
-          (person) => person.id !== personToDelete.id
-        );
+      personService
+        .deletePerson(personToDelete.id)
+        .then(() => {
+          const updatedPersons = persons.filter(
+            (person) => person.id !== personToDelete.id
+          );
 
-        setPersons(updatedPersons);
-        setMessage(
-          `${personToDelete.name}'s information is deleted`
-        );
-        setTimeout(() => {
-          setIsError(false);
-          setMessage(null);
-        }, 5000);
-      }).catch(() => {
-        setIsError(true);
-        setMessage(
-          `${personToDelete.name}'s information is no longer on the server`
-        );
-        setTimeout(() => {
-          setIsError(false);
-          setMessage(null);
-        }, 5000);
-      });
+          setPersons(updatedPersons);
+          setMessage(`${personToDelete.name}'s information is deleted`);
+          setTimeout(() => {
+            setIsError(false);
+            setMessage(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          setIsError(true);
+          setMessage(`${error.response.data.error}`);
+          setTimeout(() => {
+            setIsError(false);
+            setMessage(null);
+          }, 5000);
+        });
     }
   };
 
