@@ -150,7 +150,7 @@ const App = () => {
         });
 
   return (
-    <div className="phonebook">
+    <main className="phonebook-container">
       <h1>PhoneBook</h1>
       <Notification message={message} isError={isError} />
       <Filter inputFields={inputFields} handleInputChange={handleInputChange} />
@@ -162,7 +162,7 @@ const App = () => {
         inputNames={{ name: 'newName', number: 'newNumber' }}
       />
       <Persons personsToShow={personsToShow} deletePerson={deletePerson} />
-    </div>
+    </main>
   );
 };
 

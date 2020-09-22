@@ -7,7 +7,7 @@ const NewPersonForm = ({
   inputNames,
 }) => {
   return (
-    <div>
+    <div className="add-contact-form">
       <h2>Add a new contact</h2>
       <form onSubmit={addPerson}>
         <div>
@@ -29,7 +29,7 @@ const NewPersonForm = ({
           />
         </div>
         <div>
-          <button type="submit">add</button>
+          <button type="submit">Add</button>
         </div>
       </form>
     </div>

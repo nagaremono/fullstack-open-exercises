@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = '/api/persons';
+const baseUrl = '/persons';
 
 const createPerson = (personObject) => {
   const request = axios.post(baseUrl, personObject);

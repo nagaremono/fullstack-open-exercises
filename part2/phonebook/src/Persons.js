@@ -3,7 +3,8 @@ import React from 'react';
 const Person = ({ person, deletePerson }) => {
   return (
     <li>
-      {person.name} {person.number}
+      <span>{person.name}</span>
+      <span>{person.number}</span>
       <button className="delete-button" onClick={() => deletePerson(person)}>
         Delete
       </button>
@@ -13,7 +14,7 @@ const Person = ({ person, deletePerson }) => {
 
 const Persons = ({ personsToShow, deletePerson }) => {
   return (
-    <div>
+    <div className="persons-list">
       <h2>Numbers</h2>
       <ul>
         {personsToShow.map((person) => (
