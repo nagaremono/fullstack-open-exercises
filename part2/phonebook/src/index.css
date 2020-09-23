@@ -31,8 +31,13 @@ code {
   padding: 1rem 0;
 }
 
+.phonebook-container button {
+  cursor: pointer;
+}
+
 h1, h2 {
   text-align: center;
+  padding: 1rem 0;
 }
 
 h1 {
@@ -68,7 +73,8 @@ h1 {
 .add-contact-form {
   width: 90%;
   margin: 1rem auto;
-  height: 200px;
+  padding: 1rem 0;
+  height: 210px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -123,7 +129,6 @@ h2 {
 
 .persons-list ul {
   list-style-type: none;
-  margin: 1rem 0;
   padding: 1rem 0;
 }
 
@@ -131,11 +136,12 @@ h2 {
   font-size: 1.6rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-end;
   margin-bottom: 0.8rem;
   min-height: 65px;
   padding: 5px 0;
   align-content: space-between;
+  border-bottom: 3px solid rgb(255, 187, 60);
 }
 
 .persons-list span {
@@ -145,29 +151,105 @@ h2 {
 }
 
 .delete-button {
-  margin: 10px 10px 0;
+  margin: 1rem 1rem;
   font-size: 16px;
   padding: 4px 10px;
-  background-color: rgb(255, 64, 64);
+  background-color: rgb(245, 78, 78);
   border: 2px solid #000;
-  font-weight: 400;
+  font-weight: 600;
+  color: #000;
 }
 
 .success,
 .error {
-  width: 40%;
   font-weight: 500;
   font-size: 18px;
-  padding: 7px;
-  margin-bottom: 15px;
+  padding: 0.8rem;
+  color: #000;
 }
 
 .success {
-  border: 3px solid rgb(30, 126, 30);
+  border: 5px solid rgb(30, 126, 30);
   background-color: rgb(218, 255, 206);
 }
 
 .error {
-  border: 3px solid rgb(126, 30, 30);
+  border: 5px solid rgb(126, 30, 30);
   background-color: rgb(255, 206, 206);
+}
+
+@media screen and (min-width:600px) {
+  .phonebook-container {
+    width: 80%;
+  }
+
+  .add-contact-form h2 {
+    width: 100%;
+  }
+
+  .filter input {
+    width: 65%;
+  }
+
+  .filter label {
+    width: 80%;
+  }
+
+  .success, .error {
+    width: 85%;
+    margin: 1rem auto 2rem;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .persons-list li {
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: initial;
+  }
+
+  .persons-list span {
+    width: 35%;
+  }
+}
+
+@media screen and (min-width:1000px) {
+  .phonebook-container {
+    margin: 2rem auto;
+    padding: 2rem;
+  }
+   
+  .filter,
+  .add-contact-form,
+  .persons-list {
+    width: 80%;
+  }
+
+  .persons-list {
+    width: 60%;
+  }
+
+  .delete-button {
+    margin: 0;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .phonebook-container {
+    width: 65%;
+  }
+
+  .persons-list {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width:1440px) {
+  .phonebook-container {
+    width: 60%;
+  }
+
+  .persons-list {
+    width: 60%;
+  }
 }

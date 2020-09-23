@@ -15,7 +15,7 @@ const Person = ({ person, deletePerson }) => {
 const Persons = ({ personsToShow, deletePerson }) => {
   return (
     <div className="persons-list">
-      <h2>Numbers</h2>
+      <h2>Contacts</h2>
       <ul>
         {personsToShow.map((person) => (
           <Person
